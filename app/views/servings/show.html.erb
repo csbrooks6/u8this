@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @serving.user ? @serving.user.username : '--NONE--' %>
+</p>
+
+<p>
+  <strong>Day order:</strong>
+  <%= @serving.day_order %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @serving.quantity %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @serving.name %>
+</p>
+
+<p>
+  <strong>Calories:</strong>
+  <%= @serving.calories %>
+</p>
+
+<p>
+  <strong>When eaten:</strong>
+  <%= @serving.when_eaten %>
+</p>
+
+<%= link_to 'Edit', edit_serving_path(@serving) %> |
+<%= link_to 'Back', servings_path %>
