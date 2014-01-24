@@ -4,3 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 
 U8this::Application.load_tasks
+
