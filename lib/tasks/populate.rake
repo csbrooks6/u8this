@@ -6,7 +6,7 @@ namespace :db do
       FactoryGirl.create :user
     end
 
-    main_user = FactoryGirl.create :user, username: 'chris', email: 'chris@brooks6.com'
+    main_user = FactoryGirl.create :user, login: 'chris', email: 'chris@brooks6.com'
 
     # Create a bunch of serings.
     50.times do 

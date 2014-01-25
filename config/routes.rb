@@ -1,6 +1,12 @@
 U8this::Application.routes.draw do
   get '/' => 'pages#home'
   get '/about' => 'pages#about'
+
+  resource :user_sessions, path: 'session'
+  
+  resource :users, path: 'account'
+
+# root :controller => "user_sessions", :action => "new"
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

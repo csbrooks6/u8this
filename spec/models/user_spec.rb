@@ -5,14 +5,14 @@ describe User do
     expect(build(:user)).to be_valid
   end
 
-  it "is invalid without a username" do
-    expect(build(:user, username: nil)).to have(1).errors_on(:username)
+  it "is invalid without a login" do
+    expect(build(:user, login: nil)).to have(1).errors_on(:login)
   end
 
-  it "is invalid with duplicate username" do
-    @user1 = create(:user, username: "bob")
-    @user2 = build(:user, username: "bob")
-    expect(@user2).to have(1).errors_on(:username)
+  it "is invalid with duplicate login" do
+    @user1 = create(:user, login: "bob")
+    @user2 = build(:user, login: "bob")
+    expect(@user2).to have(1).errors_on(:login)
   end
 
   it "is invalid without email" do

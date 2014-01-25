@@ -22,6 +22,8 @@ module U8this
 
     config.i18n.enforce_available_locales = false
 
+    config.filter_parameters += [:password, :password_confirmation]
+
     # Settings for generators creating rspec specs, and factories instead of fixtures.
     config.generators do |g|
         g.test_framework :rspec,
