@@ -2,3 +2,6 @@
 // Bootstrap variables here: http://getbootstrap.com/customize/#less-variables  
 
 @import "bootstrap";
+@import "bootstrap/theme";
+
+body { padding-top: 70px; }

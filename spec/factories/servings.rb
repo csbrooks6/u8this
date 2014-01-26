@@ -1,10 +1,62 @@
-require 'Faker'
+$random_foods = [
+  'almonds',
+  'apples',
+  'bananas',
+  'black berries',
+  'blue berries',
+  'bread',
+  'broccoli',
+  'carrots',
+  'cashews',
+  'cauliflower',
+  'celery',
+  'cereal',
+  'cheese',
+  'chicken',
+  'coconuts',
+  'corn',
+  'crackers',
+  'craisins',
+  'cranberrys',
+  'cream cheese',
+  'cream of wheat',
+  'cucumbers',
+  'dried apricots',
+  'eggs',
+  'granola',
+  'hash browns',
+  'jelly',
+  'lettuce',
+  'oats',
+  'okra',
+  'oranges',
+  'pasta',
+  'peaches',
+  'peanut butter',
+  'peanuts',
+  'pears',
+  'peppers',
+  'pickles',
+  'pineapples',
+  'plums',
+  'popcorn',
+  'radishes',
+  'raisins',
+  'raspberrys',
+  'rice',
+  'sandwiches',
+  'snowcones',
+  'spinach',
+  'tacos',
+  'tangerines',
+  'yogurt',
+]
 
 FactoryGirl.define do
   factory :serving do
     day_order 1
     quantity { 1 + Random.rand(5) }
-    sequence(:name) { |n| "food#{n}" }
+    sequence(:name) { $random_foods.sample }
     calories { 150 + Random.rand(150)*5 }
     when_eaten { Date.today - Random.rand(7).days }
   end

@@ -1,3 +1,5 @@
+require 'faker'
+
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
@@ -6,9 +8,9 @@ namespace :db do
       FactoryGirl.create :user
     end
 
-    main_user = FactoryGirl.create :user, login: 'chris', email: 'chris@brooks6.com'
+    main_user = FactoryGirl.create :user
 
-    # Create a bunch of serings.
+    # Create a bunch of servings.
     50.times do 
       FactoryGirl.create :serving, user: main_user
     end

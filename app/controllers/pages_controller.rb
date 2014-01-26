@@ -4,5 +4,6 @@ class PagesController < ApplicationController
   end
 
   def about
+    render 'about'    
   end
 end

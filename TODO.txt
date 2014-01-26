@@ -1,14 +1,3 @@
 
-Serving:
--quantity - number (fractions??)
--name - string
--calories - number
--when - timestamp
-
-
-
-User:
--username
--email
--???
--has_many Servings
+-Use email to login, get rid of "login"
+-Controller specs

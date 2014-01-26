@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user_session, :current_user
+  helper_method :current_user_session, :current_user, :path_to_day
 
   private
     def current_user_session
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
       unless current_user
         store_location
         flash[:notice] = "You must be logged in to access this page"
-        redirect_to new_user_session_url
+        redirect_to new_user_sessions_url
         return false
       end
     end
@@ -41,6 +41,10 @@ class ApplicationController < ActionController::Base
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
+    end
+
+    def path_to_day(date)
+      "/%d/%02d/%02d" % [date.year, date.month, date.mday]
     end
 
 end
