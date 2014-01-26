@@ -57,7 +57,7 @@ FactoryGirl.define do
     day_order 1
     quantity { 1 + Random.rand(5) }
     sequence(:name) { $random_foods.sample }
-    calories { 150 + Random.rand(150)*5 }
+    calories { 50 + Random.rand(20)*10 }
     when_eaten { Date.today - Random.rand(7).days }
   end
 end

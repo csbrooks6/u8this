@@ -20,7 +20,7 @@ class CreateUsers < ActiveRecord::Migration
       ### END AuthLogic stuff.
 
       # Various user settings go here.
-      t.integer :daily_calorie_goal
+      t.integer   :daily_calorie_goal,  :null => false, :default => 2000
 
       t.timestamps
     end

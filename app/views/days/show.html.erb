@@ -23,13 +23,24 @@
 <br />
 <br />
 
+<h3>
+  <%= @calories %> / <%= current_user.daily_calorie_goal %>
+  <%= @calorie_percent %> %
+</h3>
 <div class="progress">
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-    <span class="sr-only">60% Complete</span>
+  <div class="progress-bar <%= @calorie_percent_type %>" role="progressbar" 
+  aria-valuenow="<%= @calorie_percent_capped %>" 
+  aria-valuemin="0" aria-valuemax="100" style="width: <%= @calorie_percent_capped %>%;">
+    <span class="sr-only"><%= @calorie_percent %>% Complete</span>
   </div>
 </div>
 
 <div>
-3 pieces of pizza
-<span class="badge">630 calories</span> 
+  <% @servings.each do |serving| %>
+    <h5>
+    <%= serving.quantity_as_str %>
+    <%= serving.name %> - 
+    <span class="badge"><%= serving.calories %> calories</span> 
+  </h5>
+  <% end %>
 </div>
