@@ -22,6 +22,16 @@ class DaysController < ApplicationController
     end
   end
 
+  def add
+    if Date.valid_date?(params[:year].to_i, params[:month].to_i, params[:day].to_i)
+      @date = Date.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
+      Serving.create user: current_user, day_order: 1, quantity: 1, name: params[:add], 
+        calories: params[:calories], when_eaten: @date
+
+      show
+    end
+  end
+
   def today
     params[:month] = Date.today.month
     params[:day] = Date.today.day

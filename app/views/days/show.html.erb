@@ -1,46 +1,80 @@
-<h3 class="text-center">
 
-<a href="<%= path_to_day @date.prev_day %>">
-<button type="button" class="btn btn-default btn-lg pull-left">
-  <span class="glyphicon glyphicon-chevron-left"></span>
-</button>
-</a>
 
-<%= @date.strftime("%b %-d, %Y") %>
+<div class="panel panel-default">
 
-<% if @date < Date.today.next_day %>
-  <a href="<%= path_to_day @date.next_day %>">
-<% end %>
-<button type="button" class="btn btn-default btn-lg pull-right">
-  <span class="glyphicon glyphicon-chevron-right"></span>
-</button>
-<% if @date < Date.today.next_day %>
-  </a>
-<% end %>
+  <!-- heading with date and arrows -->
+  <div class="panel-heading">
+    <h4 align="center">
+      <a href="<%= path_to_day @date.prev_day %>">
+      <button type="button" class="btn btn-default pull-left">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </button>
+      </a>
 
-</h3>
+      <%= @date.strftime("%b %-d, %Y") %>
 
-<br />
-<br />
-
-<h3>
-  <%= @calories %> / <%= current_user.daily_calorie_goal %>
-  <%= @calorie_percent %> %
-</h3>
-<div class="progress">
-  <div class="progress-bar <%= @calorie_percent_type %>" role="progressbar" 
-  aria-valuenow="<%= @calorie_percent_capped %>" 
-  aria-valuemin="0" aria-valuemax="100" style="width: <%= @calorie_percent_capped %>%;">
-    <span class="sr-only"><%= @calorie_percent %>% Complete</span>
+      <% if @date < Date.today.next_day %>
+        <a href="<%= path_to_day @date.next_day %>">
+      <% end %>
+      <button type="button" class="btn btn-default pull-right">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </button>
+      <% if @date < Date.today.next_day %>
+        </a>
+      <% end %>
+    </h4>
   </div>
-</div>
 
-<div>
-  <% @servings.each do |serving| %>
-    <h5>
-    <%= serving.quantity_as_str %>
-    <%= serving.name %> - 
-    <span class="badge"><%= serving.calories %> calories</span> 
-  </h5>
-  <% end %>
-</div>
+  <div class="panel-body">
+    <!-- progress bar -->
+    <div class="progress progress-striped">
+      <div class="progress-bar <%= @calorie_percent_type %>" role="progressbar" 
+      aria-valuenow="<%= @calorie_percent_capped %>" 
+      aria-valuemin="0" aria-valuemax="100" style="width: <%= @calorie_percent_capped %>%;">
+        <% if @calorie_percent >= 50 %>
+          <span>
+            <%= @calories %> / <%= current_user.daily_calorie_goal %> calories, 
+            <%= @calorie_percent %>%          
+          </span>
+        <% end %>      
+      </div>
+
+      <% if @calorie_percent < 50 %>
+        <span>
+          <%= @calories %> / <%= current_user.daily_calorie_goal %> calories, 
+          <%= @calorie_percent %>%          
+        </span>
+      <% end %>
+    </div>
+
+    <!-- list of stuff we ate -->
+    <div class="list-group">
+      <% @servings.each do |serving| %>
+        <a href="#" class="list-group-item" onClick="return false;">
+          <%= serving.quantity_as_str %>
+          <%= serving.name %>
+          <span class="badge"><%= serving.calories %> calories</span> 
+        </a>
+      <% end %>
+    </div>
+
+    <!-- add form -->
+    <%= form_tag(request.url, method: "post") do %>
+        <div class="input-group">
+          <span class="input-group-addon">#</span>
+          <input id="quantity" name="quantity" type="text" size="6" class="form-control" placeholder="2">
+          <span class="input-group-addon">?</span>
+          <input id="add" name="add" type="text" class="form-control" placeholder="oranges">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+          </span>
+          <input id="calories" name="calories" type="text" size="6" class="form-control" placeholder="90 cals">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default btn-primary">Add</button>
+          </span>
+
+        </div>
+    <% end %><!-- end form -->
+  </div><!-- end panel body-->
+</div><!-- end panel -->
+

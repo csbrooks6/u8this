@@ -1,3 +1,10 @@
+$random_portion = [
+  'slices of ',
+  'cups of ',
+  'ounces of ',
+  'pieces of ',
+]
+
 $random_foods = [
   'almonds',
   'apples',
@@ -56,7 +63,7 @@ FactoryGirl.define do
   factory :serving do
     day_order 1
     quantity { 1 + Random.rand(5) }
-    sequence(:name) { $random_foods.sample }
+    sequence(:name) { $random_portion.sample + $random_foods.sample }
     calories { 50 + Random.rand(20)*10 }
     when_eaten { Date.today - Random.rand(7).days }
   end
