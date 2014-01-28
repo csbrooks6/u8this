@@ -1,5 +1,6 @@
-        <a href="#" class="list-group-item" onClick="return false;">
+
+        <a href="#" class="list-group-item" onClick="return open_context_menu(event);" onContextMenu="return open_context_menu(event);">
           <%= serving.quantity_as_str %>
           <%= serving.name %>
-          <span class="badge"><%= serving.calories %> calories</span> 
+          <span class="label label-default"><%= serving.calories %> calories</span>
         </a>

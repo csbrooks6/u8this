@@ -8,3 +8,25 @@ $(document).ready ->
     $("#new_serving")[0].reset()
   ).bind "ajax:error", (e, xhr, status, error) ->
     alert("Error: Couldn't add, sorry! Try again later.");
+
+window.close_context_menu = (e) ->
+  contextMenu = $("#contextMenu");
+  contextMenu.css({
+    display: "none"
+  });
+  return false;
+
+
+window.open_context_menu = (e) ->
+  contextMenu = $("#contextMenu");
+  contextMenu.css({
+    display: "block",
+    left: e.pageX,
+    top: e.pageY
+  });
+  
+  event.stopPropagation();  
+  return false;
+
+$(document).click ->
+  $("#contextMenu").hide();
