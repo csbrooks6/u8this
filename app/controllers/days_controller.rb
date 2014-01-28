@@ -25,11 +25,14 @@ class DaysController < ApplicationController
   def add
     if Date.valid_date?(params[:year].to_i, params[:month].to_i, params[:day].to_i)
       @date = Date.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
-      Serving.create user: current_user, day_order: 1, quantity: 1, name: params[:add], 
-        calories: params[:calories], when_eaten: @date
+      day_order = Serving.where(user_id: @current_user, when_eaten: @date).maximum('day_order')
+      @new_serving = Serving.create user: current_user, day_order: day_order.nil? ? 0 : day_order + 1, 
+        quantity: params[:quantity].to_i, name: params[:add], calories: params[:calories], 
+        when_eaten: @date
 
-      show
+      return render partial: 'serving', object: @new_serving
     end
+    :internal_server_error
   end
 
   def today

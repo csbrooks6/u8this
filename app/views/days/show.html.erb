@@ -48,18 +48,14 @@
     </div>
 
     <!-- list of stuff we ate -->
-    <div class="list-group">
+    <div id="servings_list" class="list-group">
       <% @servings.each do |serving| %>
-        <a href="#" class="list-group-item" onClick="return false;">
-          <%= serving.quantity_as_str %>
-          <%= serving.name %>
-          <span class="badge"><%= serving.calories %> calories</span> 
-        </a>
+        <%= render partial: "serving", object: serving %>
       <% end %>
     </div>
 
     <!-- add form -->
-    <%= form_tag(request.url, method: "post") do %>
+    <%= form_tag(request.url, id: "new_serving", method: "post", remote: true) do %>
         <div class="input-group">
           <span class="input-group-addon">#</span>
           <input id="quantity" name="quantity" type="text" size="6" class="form-control" placeholder="2">
