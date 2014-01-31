@@ -91,3 +91,23 @@
           Move down</a></li>
     </ul>
 </div>
+
+<div style="display:none">
+  <!-- hidden form: delete serving -->
+  <%= form_tag('/servings/destroy.json', id: "delete_serving", method: "post", remote: true) do %>
+    <%= text_field_tag :id %>
+    <%= submit_tag 'delete' %>
+  <% end %>
+
+  <!-- hidden form: move_up serving -->
+  <%= form_tag('/servings/move_up.json', id: "move_up", method: "post", remote: true) do %>
+    <%= text_field_tag :id %>
+    <%= submit_tag 'move_up' %>
+  <% end %>
+
+  <!-- hidden form: move_down serving -->
+  <%= form_tag('/servings/move_down.json', id: "move_down", method: "post", remote: true) do %>
+    <%= text_field_tag :id %>
+    <%= submit_tag 'move_down' %>
+  <% end %>
+</div>

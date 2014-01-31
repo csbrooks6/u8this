@@ -1,4 +1,11 @@
 U8this::Application.routes.draw do
+  # Ajax calls to create and modify Servings.
+  post '/servings/create', to: 'servings#create'
+  post '/servings/update/', to: 'servings#update'
+  post '/servings/destroy/', to: 'servings#destroy'
+  post '/servings/move_up/', to: 'servings#move_up'
+  post '/servings/move_down/', to: 'servings#move_down'
+
   # Top-level pages.
   get '/' => 'pages#home'
   get '/about' => 'pages#about', format: false
