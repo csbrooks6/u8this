@@ -3,15 +3,21 @@ class ServingsController < ApplicationController
   respond_to :json
 
   def create
-    serving_params = params.require(:serving).permit(:quantity, :name, :calories)
+    serving_params = params.require(:serving).permit(:quantity, :name, :calories, :when_eaten)
+
+    # Find the next day_order index for this day.
+    day_order = Serving.where(user_id: current_user.id, 
+      when_eaten: serving_params['when_eaten']).maximum(:when_eaten)
+    day_order = day_order ? day_order+1 : 0
 
     serving = Serving.new serving_params
+    serving.attributes = serving_params
     serving.user = current_user
-    serving.day_order = 0 # TODO: something!
-    serving.when_eaten = Time.now # TODO: Correct date!
+    serving.day_order = day_order
     serving.save!
 
-    render text: '<id>%d</id>' % [serving.id]
+    html = render_to_string partial: '/days/serving', object: serving, formats: [:html]
+    render json: { action: 'add', id: serving.id, html: html }
   end
 
   def update

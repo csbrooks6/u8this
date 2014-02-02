@@ -55,16 +55,16 @@
     </div>
 
     <!-- add form -->
-    <%= form_tag(request.url, id: "new_serving", method: "post", remote: true) do %>
+    <%= form_tag('/servings/create.json', id: "create_serving", method: "post", remote: true) do %>
         <div class="input-group">
           <span class="input-group-addon">#</span>
-          <input id="quantity" name="quantity" type="text" size="6" class="form-control" placeholder="2">
+          <input id="quantity" name="serving[quantity]" type="text" size="6" class="form-control" placeholder="2">
           <span class="input-group-addon">?</span>
-          <input id="add" name="add" type="text" class="form-control" placeholder="oranges">
+          <input id="name" name="serving[name]" type="text" class="form-control" placeholder="oranges">
           <span class="input-group-addon">
             <span class="glyphicon glyphicon-exclamation-sign"></span>
           </span>
-          <input id="calories" name="calories" type="text" size="6" class="form-control" placeholder="90 cals">
+          <input id="calories" name="serving[calories]" type="text" size="6" class="form-control" placeholder="90 cals">
           <span class="input-group-btn">
             <button type="submit" class="btn btn-default btn-primary">Add</button>
           </span>

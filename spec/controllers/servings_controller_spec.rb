@@ -11,7 +11,7 @@ describe ServingsController do
   end
 
   describe "POST 'create'" do
-    it "requires a serving param" do
+    it "requires a serving param" do      
       expect { post :create }.to raise_error(ActionController::ParameterMissing)
     end
 
@@ -32,8 +32,9 @@ describe ServingsController do
         expect(@end_serving_count - @start_serving_count).to eq(1)
       end
 
-      it "returns a valid new serving id" do
-        id = @xml_response.at_css('id').content.to_i
+      it "returns a valid new serving in JSON" do
+        json = JSON.parse response.body
+        id = json['id'].to_i
         expect(Serving.find(id)).to be_valid
       end
     end

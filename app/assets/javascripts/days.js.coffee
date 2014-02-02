@@ -6,9 +6,9 @@
 
 $(document).ready ->
   # Handling ajax response for adding a serving.
-  $("#new_serving").on("ajax:success", (e, data, status, xhr) ->
-    $("#servings_list").append xhr.responseText
-    $("#new_serving")[0].reset()
+  $("#create_serving").on("ajax:success", (e, data, status, xhr) ->
+    $("#servings_list").append data.html
+    $("#create_serving")[0].reset()
   ).bind "ajax:error", (e, xhr, status, error) ->
     alert("Error: Couldn't add, sorry! Try again later.");
 
