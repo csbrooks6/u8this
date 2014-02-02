@@ -2,7 +2,6 @@ class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
       # START Authlogic stuff
-      t.string    :login,               :null => false 
       t.string    :email,               :null => false
       t.string    :crypted_password,    :null => false
       t.string    :password_salt,       :null => false
@@ -24,6 +23,6 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :users, :login, unique: true
+    add_index :users, :email, unique: true
   end
 end

@@ -12,6 +12,7 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "Login successful!"
       redirect_to '/today'
     else
+      flash[:notice] = "Invalid email or password."
       render :action => :new
     end
   end

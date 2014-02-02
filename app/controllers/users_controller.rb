@@ -10,10 +10,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:notice] = "Account registered"
-      redirect_back_or_default @user
+      redirect_to '/account'
     else
       flash[:notice] = "Error creating account"
-      render :action => :new
+      redirect_to '/account'
     end
   end
   
@@ -21,17 +21,14 @@ class UsersController < ApplicationController
     @user = @current_user
   end
 
-  def edit
-    @user = @current_user
-  end
-  
   def update
     @user = @current_user
-    if @user.update_attributes(params[:user])
+    user_params = params.require(:user).permit(:daily_calorie_goal, :password, :password_confirmation)
+    if @user.update_attributes(user_params)
       flash[:notice] = "Account updated"
-      redirect_to account_url
+      redirect_to '/account'
     else
-      render :action => :edit
+      render :action => :show
     end
   end
 
