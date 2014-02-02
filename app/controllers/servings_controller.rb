@@ -26,8 +26,9 @@ class ServingsController < ApplicationController
 
     serving.update_attributes serving_params
 
-    # TODO: Render the partial for the serving, and put it in html.
-    render json: { action: 'update', id: serving.id, html: '<h1>HI!</h1>' }
+    # Render the partial for the serving, and put it in html.
+    html = render_to_string partial: '/days/serving', object: serving
+    render json: { action: 'update', id: serving.id, html: html }
   end
 
   def destroy

@@ -1,5 +1,12 @@
 
-        <a href="#" id="serving<%= serving.id %>" class="list-group-item" onClick="return open_context_menu(event, this);" onContextMenu="return open_context_menu(event, this);">
+        <a href="#" id="serving<%= serving.id %>" class="list-group-item" 
+          onClick="return open_context_menu(event, this);" 
+          onContextMenu="return open_context_menu(event, this);"
+          data-id="<%= serving.id %>"
+          data-quantity="<%= serving.quantity_as_str %>"
+          data-name="<%= serving.name %>"
+          data-calories="<%= serving.calories %>"
+        >
           <%= serving.quantity_as_str %>
           <%= serving.name %>
           <span class="label label-default"><%= serving.calories %> calories</span>

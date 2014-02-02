@@ -38,7 +38,8 @@ class DaysController < ApplicationController
   def today
     params[:month] = Date.today.month
     params[:day] = Date.today.day
-    params[:year] = Date.today.year    
+    params[:year] = Date.today.year
+    
     show
   end  
 end
