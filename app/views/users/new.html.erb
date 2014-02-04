@@ -1,6 +1,39 @@
-<h1>Register</h1>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Register</h3>
+      </div>
 
-<%= form_for @user do |f| %>
-  <%= render :partial => "form", :object => f %>
-  <%= f.submit "Register" %>
-<% end %>
+      <div class="panel-body">
+        <%= form_for @user do |f| %>
+          <%= render :partial => "form", :object => f %>
+
+          <div class="form_group">
+            <div class="input-group">
+                <button id="new_user_submit" type="submit" class="btn btn-default btn-primary">Register</button>
+            </div>
+          </div>  
+        <% end %><!-- end form -->
+      </div>
+    </div>
+  </div>
+
+  <!-- misc current info -->
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Account Info</h3>
+      </div>
+      <div class="panel-body">    
+        <p>Hey, you should totally make an account! Here's some wonderful reasons why!
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin semper augue semper nisi pulvinar, et laoreet lorem semper. Sed nec volutpat sapien. Donec pretium aliquam accumsan. Ut ac facilisis arcu, ac bibendum dolor. Integer aliquam diam non nunc feugiat posuere. 
+
+<p>Donec dapibus, nibh ut ultrices malesuada, purus tortor congue ipsum, in gravida sem nunc vitae nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam aliquet dolor ut tincidunt lobortis.
+
+      </div>
+    </div>
+  </div>
+
+</div>  

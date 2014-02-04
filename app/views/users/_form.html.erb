@@ -1,17 +1,38 @@
-<% if @user.errors.any? %>
-Errors:
-<ul>
-  <% @user.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-  <% end %>
-</ul>
-<% end %>
+        <% if @user.errors.any? %>
+        Errors:
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+        <% end %>
 
-<%= form.label :daily_calorie_goal %><br />
-<%= form.text_field :daily_calorie_goal %><br />
-<br />
-<%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
-<%= form.password_field :password %><br />
-<br />
-<%= form.label :password_confirmation %><br />
-<%= form.password_field :password_confirmation %><br />
+          <div class="form_group">
+            <div class="input-group">
+              <span class="input-group-addon">Daily Calorie Goal</span>
+              <input id="user_daily_calorie_goal" name="user[daily_calorie_goal]" type="text" class="form-control" 
+                value="<%= @user.daily_calorie_goal %>">
+            </div>
+          </div>
+
+          <br />
+
+          <div class="form_group">
+            <div class="input-group">
+              <span class="input-group-addon">New Password</span>
+              <input id="user_password" name="user[password]" type="password" class="form-control">
+            </div>
+          </div>
+
+          <br />
+
+          <div class="form_group">
+            <div class="input-group">
+              <span class="input-group-addon">Confirm Password</span>
+              <input id="user_password_confirmation" name="user[password_confirmation]" type="password" class="form-control">
+            </div>
+          </div>
+
+          <br />
+
+
