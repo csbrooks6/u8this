@@ -34,19 +34,14 @@ gem 'bootstrap-sass', '~> 3.0.3.0'
 # Authlogic, please.
 gem 'authlogic', '~> 3.3.0' 
 
-gem "faker", "~> 1.2.0"
+gem 'faker', "~> 1.2.0"
+
+gem 'passenger', '~> 4.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-
-gem 'rvm1-capistrano3', require: false
-
-group :development do
-  gem 'capistrano-rails', '~> 1.1'
-end
-
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
@@ -55,7 +50,9 @@ end
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano', group: :development
+gem 'rvm1-capistrano3', require: false
+gem 'capistrano', '~> 3.1'
+gem 'capistrano-rails', '~> 1.1'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
