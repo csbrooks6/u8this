@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:notice] = "Account registered"
-      redirect_to '/account'
+      redirect_to '/today'
     else
       flash[:notice] = "Error creating account"
       redirect_to '/account'
@@ -34,6 +34,6 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:login, :email, :password, :password_confirmation, :commit)
+      params.require(:user).permit(:login, :email, :daily_calorie_goal, :password, :password_confirmation, :commit)
     end
 end
