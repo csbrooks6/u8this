@@ -36,8 +36,6 @@ gem 'authlogic', '~> 3.3.0'
 
 gem 'faker', "~> 1.2.0"
 
-gem 'passenger', '~> 4.0'
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

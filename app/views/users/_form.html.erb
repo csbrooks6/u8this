@@ -7,6 +7,18 @@
         </ul>
         <% end %>
 
+          <% unless @user.persisted? %>
+            <div class="form_group">
+              <div class="input-group">
+                <span class="input-group-addon">Email</span>
+                <input id="user_email" name="user[email]" type="text" class="form-control" 
+                  value="<%= @user.email %>">
+              </div>
+            </div>
+          <% end %>
+
+          <br />
+
           <div class="form_group">
             <div class="input-group">
               <span class="input-group-addon">Daily Calorie Goal</span>

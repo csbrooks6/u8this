@@ -10,6 +10,10 @@ Using:
 
 * ruby 2.0.0
 
+* capistrano
+
+* rspec
+
 * Bootstrap 3
 
 * AuthLogic

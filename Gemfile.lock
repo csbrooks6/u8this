@@ -59,7 +59,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    daemon_controller (1.1.8)
     database_cleaner (1.0.1)
     diff-lcs (1.2.5)
     erubis (2.7.0)
@@ -95,10 +94,6 @@ GEM
     net-ssh (2.8.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
-    passenger (4.0.37)
-      daemon_controller (>= 1.1.0)
-      rack
-      rake (>= 0.8.1)
     polyglot (0.3.3)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -198,7 +193,6 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   launchy (~> 2.3.0)
-  passenger (~> 4.0)
   rails (= 4.0.2)
   rspec-rails (~> 2.14.0)
   rvm1-capistrano3
