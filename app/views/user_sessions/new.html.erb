@@ -1,13 +1,38 @@
-<h1>Login</h1>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Log In</h3>
+      </div>
 
-<%= form_for @user_session, :url => user_sessions_path do |f| %>
-  <%= f.label :email %><br />
-  <%= f.text_field :email %><br />
-  <br />
-  <%= f.label :password %><br />
-  <%= f.password_field :password %><br />
-  <br />
-  <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
-  <br />
-  <%= f.submit "Login" %>
-<% end %>
+      <%= form_for @user_session, :url => user_sessions_path do |f| %>
+        <div class="panel-body">
+          <div class="form_group">
+            <div class="input-group">
+              <span class="input-group-addon">Email</span>
+              <input id="user_session_email" name="user_session[email]" type="text" class="form-control">
+            </div>
+          </div>
+
+          <br />
+
+          <div class="form_group">
+            <div class="input-group">
+              <span class="input-group-addon">New Password</span>
+              <input id="user_session_password" name="user_session[password]" type="password" class="form-control">
+            </div>
+          </div>
+
+          <br />
+
+          <div class="form_group">
+            <div class="input-group">
+                <button id="new_user_session_submit" type="submit" class="btn btn-default btn-primary">Log In</button>
+            </div>
+          </div>  
+        </div>
+      <% end %><!-- form -->
+
+    </div>
+  </div>
+</div>
