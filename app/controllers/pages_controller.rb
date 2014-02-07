@@ -6,4 +6,9 @@ class PagesController < ApplicationController
   def about
     render 'about'    
   end
+
+  def testdrive
+    render 'testdrive'    
+  end
+
 end

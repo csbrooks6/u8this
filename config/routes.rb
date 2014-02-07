@@ -8,6 +8,7 @@ U8this::Application.routes.draw do
 
   # Top-level pages.
   get '/' => 'pages#home'
+  get '/testdrive' => 'pages#testdrive'
   # get '/about' => 'pages#about', format: false
   
   # Daily food logs.
