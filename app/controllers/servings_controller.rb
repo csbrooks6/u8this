@@ -10,8 +10,7 @@ class ServingsController < ApplicationController
       when_eaten: serving_params['when_eaten']).maximum(:when_eaten)
     day_order = day_order ? day_order+1 : 0
 
-    serving = Serving.new serving_params
-    serving.attributes = serving_params
+    serving = Serving.new attributes: serving_params
     serving.user = current_user
     serving.day_order = day_order
     serving.save!
