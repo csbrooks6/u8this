@@ -19,7 +19,7 @@ test:
   timeout: 5000
 
 staging:
-  adapter: postgres
+  adapter: postgresql
   database: staging_u8this_db
   username: staging_u8this
   password: <%= begin IO.read("/home/deploy/.staging_u8this") rescue "" end %>
