@@ -19,11 +19,33 @@ Using:
 * AuthLogic
 
 
-Environments: 
+===Environments: 
 
-* Development: Run this on your own box
+* Development: Run this on your own box. sqlite.
 
 * Staging: Meant to be run in same setup as production, so you can test deployment. Postgres.
 
 * Production: Postgres.
+
+
+===Database Setup:
+
+Using postgresql for staging and production. 
+
+-Create the "Role" (aka user):
+
+# createuser -d -R -P will create a user that can create a db (-d), can't create role (-R), and prompt for password(-P)
+sudo -u postgres createuser -d -R -P USERNAME
+
+-Enter and confirm a password for the new user
+
+-Put the password in a file in "deploy" user's home directory, as named in database.yml. (E.g. '.u8this'.)
+
+-chown deploy:deploy that file, and chmod 600 it.
+
+-Create the db:
+
+# createdb -O will create a db with the specified owner (-O)
+sudo -u postgres createdb -O USERNAME DBNAME
+
 

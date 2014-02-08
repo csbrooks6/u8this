@@ -21,12 +21,15 @@ test:
 staging:
   adapter: postgresql
   host: localhost  
+  pool: 5
   database: staging_u8this_db
   username: staging_u8this
   password: <%= begin IO.read("/home/deploy/.staging_u8this") rescue "" end %>
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: postgresql
+  host: localhost  
   pool: 5
-  timeout: 5000
+  database: u8this_db
+  username: u8this
+  password: <%= begin IO.read("/home/deploy/.u8this") rescue "" end %>
