@@ -67,3 +67,6 @@ group:test do
   gem "selenium-webdriver", "~> 2.35.1"
 end
 
+group:staging,:production do
+  gem "pg"
+end
