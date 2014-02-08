@@ -20,6 +20,7 @@ test:
 
 staging:
   adapter: postgresql
+  host: localhost  
   database: staging_u8this_db
   username: staging_u8this
   password: <%= begin IO.read("/home/deploy/.staging_u8this") rescue "" end %>
