@@ -8,8 +8,6 @@ set :ssh_options, { :forward_agent => true }
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-# Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/srv/www/u8this'
 
 # Default value for :scm is :git
 set :scm, :git
@@ -33,7 +31,7 @@ set :log_level, :debug
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 5
 
 namespace :deploy do
 

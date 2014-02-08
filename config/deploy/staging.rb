@@ -16,4 +16,4 @@ role :db,  %w{deploy@brooks6.com}
 # extended properties on the server.
 server 'brooks6.com', user: 'deploy', roles: %w{web app}
 
-set :deploy_to, '/srv/www/u8this.com'
+set :deploy_to, '/srv/www/staging.u8this.com'

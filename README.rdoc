@@ -19,3 +19,11 @@ Using:
 * AuthLogic
 
 
+Environments: 
+
+* Development: Run this on your own box
+
+* Staging: Meant to be run in same setup as production, so you can test deployment. Postgres.
+
+* Production: Postgres.
+

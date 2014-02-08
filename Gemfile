@@ -55,7 +55,7 @@ gem 'capistrano-rails', '~> 1.1'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-group:development,:test do
+group:development,:test,:staging do
   gem "rspec-rails", "~> 2.14.0"
   gem "factory_girl_rails", "~> 4.2.1"
 end
