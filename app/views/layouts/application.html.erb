@@ -56,6 +56,18 @@
 <div class="container">
   <div class="starter-template">
 
+  <% if Rails.env.development? %>
+    <div class="alert alert-info">
+      <p>NOTE: DEVELOPMENT SERVER</p>
+    </div>
+  <% end %>  
+
+  <% if Rails.env.staging? %>
+    <div class="alert alert-warning">
+      <p>NOTE: STAGING SERVER</p>
+    </div>
+  <% end %>  
+
   <% if flash[:notice] %>
     <div class="alert alert-warning alert-dismissable">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -64,6 +76,18 @@
   <% end %>  
 
 <%= yield %>
+
+  <% if Rails.env.development? %>
+    <div class="alert alert-info">
+      <p>NOTE: DEVELOPMENT SERVER</p>
+    </div>
+  <% end %>
+
+  <% if Rails.env.staging? %>
+    <div class="alert alert-warning">
+      <p>NOTE: STAGING SERVER</p>
+    </div>
+  <% end %>  
 
   <div class="footer">
     <p>&copy; u8this <%= Time.now.year %> </p>
