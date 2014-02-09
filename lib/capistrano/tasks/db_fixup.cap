@@ -1,0 +1,8 @@
+desc "Check for and repair database errors."
+task :db_fixup do
+  on roles(:all) do |host|
+    within release_path do
+      execute :rake, 'db:fixup'
+    end    
+  end
+end

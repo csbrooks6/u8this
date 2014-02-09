@@ -65,6 +65,8 @@ class Serving < ActiveRecord::Base
         s.day_order = ord
         s.save
         ok = false
+
+        puts "Fixed " + s.inspect
       end
 
       ord += 1
@@ -75,6 +77,8 @@ class Serving < ActiveRecord::Base
 
   # Try to fixup ALL the day_orders across all users and days. 
   def self.fixup_all_day_orders 
+    puts "Serving#fixup_all_day_orders"
+
     # This all could probably be made into one query, but it should only run in development.
     ok = true
     user_ids = Serving.pluck('DISTINCT user_id')
