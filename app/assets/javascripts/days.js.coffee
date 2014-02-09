@@ -9,9 +9,10 @@ $(document).ready ->
 
   # Handling ajax response for adding a serving.
   $("#create_serving").on("ajax:success", (e, data, status, xhr) ->
-    console.log("create_serving success: html=" + data.html);
+    console.log("create_serving success");
     $("#servings_list").append(data.html);
     $("#create_serving")[0].reset();
+    $('#create_serving').find("#quantity").focus();
   ).bind "ajax:error", (e, xhr, status, error) ->
     console.log("create_serving error");
     alert("Error: Couldn't add, sorry! Try again later.");
