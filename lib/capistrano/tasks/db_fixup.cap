@@ -1,8 +1,11 @@
 desc "Check for and repair database errors."
 task :db_fixup do
-  on roles(:all) do |host|
+  on primary fetch(:migration_role) do
     within release_path do
-      execute :rake, 'db:fixup'
+      set :rails_env, (fetch(:rails_env) || fetch(:stage))
+      with rails_env: fetch(:rails_env) do
+        execute :rake, 'db:fixup'
+      end
     end    
   end
 end
