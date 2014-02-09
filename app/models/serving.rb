@@ -17,6 +17,8 @@ class Serving < ActiveRecord::Base
     self.day_order -= 1
     prev.save
     save
+
+    assert Serving.check_day_orders(user_id, day_order)    
   end
 
   def move_down
@@ -28,6 +30,8 @@ class Serving < ActiveRecord::Base
     self.day_order += 1
     after.save
     save
+
+    assert Serving.check_day_orders(user_id, day_order)
   end
 
   # Return an in-order array of all the Servings for the given user and day.
@@ -35,31 +39,56 @@ class Serving < ActiveRecord::Base
     Serving.where(user_id: user_id, when_eaten: when_eaten).order(:day_order, :name)
   end
 
-  # If the day_order field data isn't correct, this will fix it up as best it can, 
-  # and return the number of Servings fixed. 
-  # NOTE: If this returns >0, something is broken somewhere!
-  def self.fixup_day_orders
-    # (This all could probably be made into one query, but we almost never run this.)
-    fixed_count = 0
+  # Check day_orders in order, start at 0, no gaps.
+  # Returns true if everything was ok, false if not.
+  def self.check_day_orders user_id, when_eaten
+    servings = Serving.find_servings_for_user_for_day(user_id, when_eaten)
+    ord = 0
+    servings.each do |s|
+      return false unless s.day_order == ord
+      ord += 1
+    end
+
+    true
+  end
+
+
+  # If the day_order field data isn't correct (starts at 0, no gaps), this will fix it up as best it can.
+  # Returns true if everything was ok, false if not.
+  def self.fixup_day_orders user_id, when_eaten
+    ok = true
+
+    servings = Serving.find_servings_for_user_for_day(user_id, when_eaten)
+    ord = 0
+    servings.each do |s|
+      if s.day_order != ord
+        s.day_order = ord
+        s.save
+        ok = false
+      end
+
+      ord += 1
+    end
+
+    ok
+  end
+
+  # Try to fixup ALL the day_orders across all users and days. 
+  def self.fixup_all_day_orders 
+    # This all could probably be made into one query, but it should only run in development.
+    ok = true
     user_ids = Serving.pluck('DISTINCT user_id')
     user_ids.each do |user_id|
       dates = Serving.where(user_id: user_id).pluck('DISTINCT when_eaten')
       dates.each do |when_eaten|
-        servings = Serving.find_servings_for_user_for_day user_id, when_eaten
-        ord = 0
-        servings.each do |s|
-          if s.day_order != ord
-            s.day_order = ord
-            s.save
-            fixed_count += 1
-            puts "FIXED: "+s.inspect
-          end
-
-          ord += 1
+        unless Serving.fixup_day_orders user_id, when_eaten
+          ok = false
         end
+
       end
     end
 
-    fixed_count
+    ok
   end
+
 end

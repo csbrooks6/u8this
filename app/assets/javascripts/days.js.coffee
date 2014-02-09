@@ -48,7 +48,7 @@ $(document).ready ->
     serving.insertAfter(serving2);
     serving.fadeTo(200.0, 0.0).fadeTo(200.0, 1.0);
   ).bind "ajax:error", (e, xhr, status, error) ->
-    alert("Error moving up!");
+    alert("Error moving down!");
   
   # Clicked on the context menu.
   $("#contextMenu").on("click", "a", (event) ->

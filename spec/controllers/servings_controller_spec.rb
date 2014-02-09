@@ -18,7 +18,7 @@ describe ServingsController do
     context "with valid serving params" do
       before :each do
         @start_serving_count = Serving.count
-        fake_serving_hash = attributes_for(:serving).except(:user, :day_order, :when_eaten)
+        fake_serving_hash = attributes_for(:serving).except(:user, :day_order)
         post :create, serving: fake_serving_hash
         @xml_response = Nokogiri::XML(response.body)
         @end_serving_count = Serving.count
@@ -36,6 +36,44 @@ describe ServingsController do
         json = JSON.parse response.body
         id = json['id'].to_i
         expect(Serving.find(id)).to be_valid
+      end
+
+      it "returns a new serving with day_order 0" do
+        json = JSON.parse response.body
+        id = json['id'].to_i
+        expect(Serving.find(id).day_order).to eq(0)
+      end
+    end
+
+    context "with one serving already existing for today" do
+      before :each do
+        serving = create :serving, user: @current_user, when_eaten: Date.today
+        @start_serving_count = Serving.count
+        fake_serving_hash = attributes_for(:serving).except(:user, :day_order)
+        fake_serving_hash['when_eaten'] = Date.today
+        post :create, serving: fake_serving_hash
+        @xml_response = Nokogiri::XML(response.body)
+        @end_serving_count = Serving.count
+      end
+
+      it "returns http success" do
+        response.should be_success
+      end
+
+      it "creates one new serving" do
+        expect(@end_serving_count - @start_serving_count).to eq(1)
+      end
+
+      it "returns a valid new serving in JSON" do
+        json = JSON.parse response.body
+        id = json['id'].to_i
+        expect(Serving.find(id)).to be_valid
+      end
+
+      it "returns a new serving with day_order 1" do
+        json = JSON.parse response.body
+        id = json['id'].to_i
+        expect(Serving.find(id).day_order).to eq(1)
       end
     end
   end

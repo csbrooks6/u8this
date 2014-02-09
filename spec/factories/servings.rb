@@ -61,7 +61,7 @@ $random_foods = [
 
 FactoryGirl.define do
   factory :serving do
-    day_order 1
+    day_order 0
     quantity { 1 + Random.rand(5) }
     sequence(:name) { $random_portion.sample + $random_foods.sample }
     calories { 50 + Random.rand(20)*10 }

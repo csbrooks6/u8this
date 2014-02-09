@@ -7,8 +7,12 @@ class ServingsController < ApplicationController
 
     # Find the next day_order index for this day.
     day_order = Serving.where(user_id: current_user.id, 
-      when_eaten: serving_params['when_eaten']).maximum(:when_eaten)
-    day_order = day_order ? day_order+1 : 0
+      when_eaten: serving_params['when_eaten']).maximum(:day_order)
+    if day_order.nil?
+      day_order = 0
+    else
+      day_order += 1
+    end
 
     serving = Serving.new attributes: serving_params
     serving.user = current_user
@@ -46,9 +50,18 @@ class ServingsController < ApplicationController
     end
 
     when_eaten = serving.when_eaten 
+    day_order = serving.day_order
+
     serving.destroy
 
-    calories = Serving.where(user_id: current_user, when_eaten: when_eaten).order(:day_order).sum(:calories)
+    # All servings past this one get moved up.
+    Serving.find_servings_for_user_for_day(current_user, when_eaten).where(
+      'day_order > ?', day_order).find_each do |s|
+      s.day_order -= 1
+      s.save
+    end
+
+    calories = Serving.where(user_id: current_user, when_eaten: when_eaten).sum(:calories)
     #calorie_percent = (100.0 * @calories / current_user.daily_calorie_goal).to_i
     #calorie_percent_capped = [@calorie_percent, 100].min
 
