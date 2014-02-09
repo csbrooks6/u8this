@@ -5,15 +5,20 @@
 # For the basis of the context menu, see: http://jsfiddle.net/KyleMit/X9tgY/
 
 $(document).ready ->
+  console.log("document.ready begin");
+
   # Handling ajax response for adding a serving.
   $("#create_serving").on("ajax:success", (e, data, status, xhr) ->
-    $("#servings_list").append data.html
-    $("#create_serving")[0].reset()
+    console.log("create_serving success: html=" + data.html);
+    $("#servings_list").append(data.html);
+    $("#create_serving")[0].reset();
   ).bind "ajax:error", (e, xhr, status, error) ->
+    console.log("create_serving error");
     alert("Error: Couldn't add, sorry! Try again later.");
 
   # Handling ajax response for deleting a serving.
   $("#delete_serving").on("ajax:success", (e, data, status, xhr) ->
+    console.log("delete_serving success");
     serving = $('#serving'+data.id.toString());
 
     serving.fadeOut("slow", ->
@@ -24,6 +29,7 @@ $(document).ready ->
 
   # Handling ajax response for editing a serving.
   $("#update_serving").on("ajax:success", (e, data, status, xhr) ->
+    console.log("update_serving success");
     window.servingClicked.replaceWith(data.html)    
     window.servingClicked = null
     element = $('#serving'+window.servingClickedId.toString());
@@ -34,6 +40,7 @@ $(document).ready ->
 
   # Handling ajax response for moving up a serving.
   $("#move_up").on("ajax:success", (e, data, status, xhr) ->
+    console.log("move_up success");    
     serving = $('#serving'+data.id.toString());
     serving2 = serving.prev();
     serving.insertBefore(serving2);
@@ -43,6 +50,7 @@ $(document).ready ->
 
   # Handling ajax response for moving up a serving.
   $("#move_down").on("ajax:success", (e, data, status, xhr) ->
+    console.log("move_down success");    
     serving = $('#serving'+data.id.toString());
     serving2 = serving.next();
     serving.insertAfter(serving2);
@@ -76,20 +84,19 @@ $(document).ready ->
       )
 
     window.close_context_menu(event);
-    return false;
+    event.preventDefault();
   )
 
   # On edit form submit, close modal (and still submit).
   $('#update_serving_submit').on("click", (event) ->
     $("#update_modal").modal('hide');
-    return true;
   )
 
   window.close_context_menu = (e) ->
     $("#contextMenu").css({
       display: "none"
     });
-    return false;
+    event.preventDefault();
 
   window.open_context_menu = (e, servingClicked) ->
     contextMenu = $("#contextMenu");
@@ -104,10 +111,12 @@ $(document).ready ->
     window.servingClickedId = $(servingClicked).attr('data-id')
 
     event.stopPropagation();  
-    return false;
+    event.preventDefault();
 
   # Somewhere besides the context menu is clicked, so hide it.
   $(document).click ->
     $("#contextMenu").hide();
+
+  console.log("document.ready done");
 
 
