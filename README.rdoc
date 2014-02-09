@@ -18,6 +18,12 @@ Using:
 
 * AuthLogic
 
+===Asserts, and data integrity: 
+
+I'm using solid_assert.gem. Only use that to check if things have done what they were supposed to,
+don't try to fix anything inside of asserts, just assert that it isn't right. 
+
+To try to repair anything wacky in the database, use `cap production db_fixup`.
 
 ===Environments: 
 

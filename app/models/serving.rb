@@ -18,7 +18,7 @@ class Serving < ActiveRecord::Base
     prev.save
     save
 
-    assert Serving.check_day_orders(user_id, day_order)    
+    assert(Serving.check_day_orders(user_id, when_eaten))
   end
 
   def move_down
@@ -31,7 +31,7 @@ class Serving < ActiveRecord::Base
     after.save
     save
 
-    assert Serving.check_day_orders(user_id, day_order)
+    assert(Serving.check_day_orders(user_id, when_eaten))
   end
 
   # Return an in-order array of all the Servings for the given user and day.
