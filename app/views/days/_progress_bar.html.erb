@@ -1,0 +1,19 @@
+    <div id="progress_bar_to_replace" class="progress progress-striped">
+      <div class="progress-bar <%= calorie_percent_type %>" role="progressbar" 
+      aria-valuenow="<%= calorie_percent_capped %>" 
+      aria-valuemin="0" aria-valuemax="100" style="width: <%= calorie_percent_capped %>%;">
+        <% if calorie_percent >= 50 %>
+          <span>
+            <%= calories %> / <%= current_user.daily_calorie_goal %> calories, 
+            <%= calorie_percent %>%          
+          </span>
+        <% end %>      
+      </div>
+
+      <% if calorie_percent < 50 %>
+        <span>
+          <%= calories %> / <%= current_user.daily_calorie_goal %> calories, 
+          <%= calorie_percent %>%          
+        </span>
+      <% end %>
+    </div>

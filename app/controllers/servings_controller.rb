@@ -20,7 +20,10 @@ class ServingsController < ApplicationController
     serving.save!
 
     html = render_to_string partial: '/days/serving', object: serving, formats: [:html]
-    render json: { action: 'add', id: serving.id, html: html }
+    progress_bar_locals = DaysController.get_progress_bar_locals current_user, serving.when_eaten
+    progress_bar_html = render_to_string partial: '/days/progress_bar', formats: [:html], locals: progress_bar_locals
+
+    render json: { action: 'add', id: serving.id, html: html, progress_bar_html: progress_bar_html }
   end
 
   def update
@@ -37,7 +40,10 @@ class ServingsController < ApplicationController
 
     # Render the partial for the serving, and put it in html.
     html = render_to_string partial: '/days/serving', object: serving
-    render json: { action: 'update', id: serving.id, html: html }
+    progress_bar_locals = DaysController.get_progress_bar_locals current_user, serving.when_eaten
+    progress_bar_html = render_to_string partial: '/days/progress_bar', formats: [:html], locals: progress_bar_locals
+
+    render json: { action: 'update', id: serving.id, html: html, progress_bar_html: progress_bar_html }
   end
 
   def destroy
@@ -61,11 +67,10 @@ class ServingsController < ApplicationController
       s.save
     end
 
-    calories = Serving.where(user_id: current_user, when_eaten: when_eaten).sum(:calories)
-    #calorie_percent = (100.0 * @calories / current_user.daily_calorie_goal).to_i
-    #calorie_percent_capped = [@calorie_percent, 100].min
+    progress_bar_locals = DaysController.get_progress_bar_locals current_user, serving.when_eaten
+    progress_bar_html = render_to_string partial: '/days/progress_bar', formats: [:html], locals: progress_bar_locals
 
-    render json: { action: 'delete', id: serving.id, calories: calories }
+    render json: { action: 'delete', id: serving.id, progress_bar_html: progress_bar_html }
   end
 
   def move_up

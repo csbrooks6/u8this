@@ -11,6 +11,9 @@ $(document).ready ->
   $("#create_serving").on("ajax:success", (e, data, status, xhr) ->
     console.log("create_serving success");
     $("#servings_list").append(data.html);
+
+    $("#progress_bar_to_replace").replaceWith(data.progress_bar_html)
+
     $("#create_serving")[0].reset();
     $('#create_serving').find("#quantity").focus();
   ).bind "ajax:error", (e, xhr, status, error) ->
@@ -20,6 +23,9 @@ $(document).ready ->
   # Handling ajax response for deleting a serving.
   $("#delete_serving").on("ajax:success", (e, data, status, xhr) ->
     console.log("delete_serving success");
+
+    $("#progress_bar_to_replace").replaceWith(data.progress_bar_html)
+
     serving = $('#serving'+data.id.toString());
 
     serving.fadeOut("slow", ->
@@ -31,6 +37,9 @@ $(document).ready ->
   # Handling ajax response for editing a serving.
   $("#update_serving").on("ajax:success", (e, data, status, xhr) ->
     console.log("update_serving success");
+
+    $("#progress_bar_to_replace").replaceWith(data.progress_bar_html)
+
     window.servingClicked.replaceWith(data.html)    
     window.servingClicked = null
     element = $('#serving'+window.servingClickedId.toString());
