@@ -11,13 +11,13 @@
 
       <%= @date.strftime("%b %-d, %Y") %>
 
-      <% if @date < Date.today.next_day %>
+      <% if @date < @today.next_day %>
         <a href="<%= path_to_day @date.next_day %>">
       <% end %>
       <button type="button" class="btn btn-default pull-right">
         <span class="glyphicon glyphicon-chevron-right"></span>
       </button>
-      <% if @date < Date.today.next_day %>
+      <% if @date < @today.next_day %>
         </a>
       <% end %>
     </h4>

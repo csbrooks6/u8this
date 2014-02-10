@@ -4,6 +4,7 @@ class DaysController < ApplicationController
   def show
     if Date.valid_date?(params[:year].to_i, params[:month].to_i, params[:day].to_i)
       @date = Date.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
+      @today = Time.now.in_time_zone.to_date
 
       @servings = Serving.find_servings_for_user_for_day @current_user, @date
 
@@ -40,9 +41,10 @@ class DaysController < ApplicationController
 
   
   def today
-    params[:month] = Date.today.month
-    params[:day] = Date.today.day
-    params[:year] = Date.today.year
+    today = Time.now.in_time_zone.to_date
+    params[:month] = today.month
+    params[:day] = today.day
+    params[:year] = today.year
     
     show
   end  
