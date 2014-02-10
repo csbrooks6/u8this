@@ -40,8 +40,9 @@ Using postgresql for staging and production.
 
 -Create the "Role" (aka user):
 
-`# createuser -d -R -P will create a user that can create a db (-d), can't create role (-R), and prompt for password(-P)`
-`sudo -u postgres createuser -d -R -P USERNAME`
+# createuser -d -R -P will create a user that can create a db (-d), can't create role (-R), and prompt for password(-P)
+
+sudo -u postgres createuser -d -R -P USERNAME
 
 -Enter and confirm a password for the new user
 
@@ -51,7 +52,8 @@ Using postgresql for staging and production.
 
 -Create the db:
 
-`# createdb -O will create a db with the specified owner (-O)`
-`sudo -u postgres createdb -O USERNAME DBNAME`
+# createdb -O will create a db with the specified owner (-O)
+
+sudo -u postgres createdb -O USERNAME DBNAME
 
 
