@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124163756) do
+ActiveRecord::Schema.define(version: 20140215164513) do
 
   create_table "servings", force: true do |t|
     t.integer  "user_id"
@@ -35,22 +35,23 @@ ActiveRecord::Schema.define(version: 20140124163756) do
   add_index "user_sessions", ["updated_at"], name: "index_user_sessions_on_updated_at"
 
   create_table "users", force: true do |t|
-    t.string   "email",                              null: false
-    t.string   "crypted_password",                   null: false
-    t.string   "password_salt",                      null: false
-    t.string   "persistence_token",                  null: false
-    t.string   "single_access_token",                null: false
-    t.string   "perishable_token",                   null: false
-    t.integer  "login_count",         default: 0,    null: false
-    t.integer  "failed_login_count",  default: 0,    null: false
+    t.string   "email",                               null: false
+    t.string   "crypted_password",                    null: false
+    t.string   "password_salt",                       null: false
+    t.string   "persistence_token",                   null: false
+    t.string   "single_access_token",                 null: false
+    t.string   "perishable_token",                    null: false
+    t.integer  "login_count",         default: 0,     null: false
+    t.integer  "failed_login_count",  default: 0,     null: false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
-    t.integer  "daily_calorie_goal",  default: 2000, null: false
+    t.integer  "daily_calorie_goal",  default: 2000,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin",               default: false, null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
