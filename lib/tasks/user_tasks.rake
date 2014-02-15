@@ -6,7 +6,7 @@ namespace :user do
   task list: :environment do
     users = User.all.order(:email)
 
-    format = "%20s|%11s|%25s|%5s|"
+    format = "%30s|%11s|%25s|%5s|"
     puts format % ["email", "login_count", "last_login_at", "admin"]
     puts "-" * 80
     users.each do |u|
