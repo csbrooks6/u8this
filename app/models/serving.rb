@@ -20,6 +20,9 @@ class Serving < ActiveRecord::Base
   validates :day_order, numericality: { greater_than_or_equal_to: 0 }  
 
   def quantity_as_str
+    if quantity.nil?
+      return "-"
+    end
     "%g" % quantity
   end
 
