@@ -18,3 +18,5 @@
 
 // Loads all Bootstrap javascripts
 //= require bootstrap
+
+//= require typeahead.bundle.min.js

@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: servings
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  day_order  :integer
+#  quantity   :float
+#  name       :string(255)
+#  calories   :integer
+#  when_eaten :date
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 $random_portion = [
   'slices of ',
   'cups of ',

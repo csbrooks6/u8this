@@ -7,6 +7,34 @@
 $(document).ready ->
   console.log("document.ready begin");
 
+  # Setup typeahead
+  numbers = new Bloodhound({
+    datumTokenizer: (d) ->
+      return Bloodhound.tokenizers.whitespace(d.num);
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: [
+      { num: 'one' },
+      { num: 'two' },
+      { num: 'three' },
+      { num: 'four' },
+      { num: 'five' },
+      { num: 'six' },
+      { num: 'seven' },
+      { num: 'eight' },
+      { num: 'nine' },
+      { num: 'ten' }
+    ]
+  });
+  # initialize the bloodhound suggestion engine
+  numbers.initialize();
+ 
+  #instantiate the typeahead UI
+  $('.example-numbers .typeahead').typeahead(null, {
+    displayKey: 'num',
+    source: numbers.ttAdapter()
+  });
+
+
   # Handling ajax response for adding a serving.
   $("#create_serving").on("ajax:success", (e, data, status, xhr) ->
     console.log("create_serving success");
