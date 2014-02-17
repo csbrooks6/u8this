@@ -19,6 +19,8 @@ class ServingsController < ApplicationController
     serving.day_order = day_order
     serving.save!
 
+    Food.addref current_user, serving.name
+
     html = render_to_string partial: '/days/serving', object: serving, formats: [:html]
     progress_bar_locals = DaysController.get_progress_bar_locals current_user, serving.when_eaten
     progress_bar_html = render_to_string partial: '/days/progress_bar', formats: [:html], locals: progress_bar_locals
@@ -36,7 +38,14 @@ class ServingsController < ApplicationController
       return :internal_error
     end
 
+    old_name = serving.name
+
     serving.update_attributes serving_params
+
+    if old_name != serving.name
+      Food.addref current_user, serving.name
+      Food.release current_user, old_name
+    end
 
     # Render the partial for the serving, and put it in html.
     html = render_to_string partial: '/days/serving', object: serving
@@ -57,6 +66,8 @@ class ServingsController < ApplicationController
 
     when_eaten = serving.when_eaten 
     day_order = serving.day_order
+
+    Food.release current_user, serving.name
 
     serving.destroy
 

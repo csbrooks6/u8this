@@ -6,32 +6,24 @@
 
 $(document).ready ->
   console.log("document.ready begin");
-
-  # Setup typeahead
-  numbers = new Bloodhound({
-    datumTokenizer: (d) ->
-      return Bloodhound.tokenizers.whitespace(d.num);
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: [
-      { num: 'one' },
-      { num: 'two' },
-      { num: 'three' },
-      { num: 'four' },
-      { num: 'five' },
-      { num: 'six' },
-      { num: 'seven' },
-      { num: 'eight' },
-      { num: 'nine' },
-      { num: 'ten' }
-    ]
-  });
-  # initialize the bloodhound suggestion engine
-  numbers.initialize();
  
-  #instantiate the typeahead UI
-  $('.example-numbers .typeahead').typeahead(null, {
-    displayKey: 'num',
-    source: numbers.ttAdapter()
+  # Create Bloodhound suggestion engine for typeahead to query against. 
+  # Initialized using the json returns from Users#list_foods.
+  window.bloodhound = new Bloodhound({
+    name: 'foods',
+    remote: '/user/list_foods.js?q=%QUERY',
+    datumTokenizer: (d)->
+      console.log(d.val);
+      return Bloodhound.tokenizers.whitespace(d.val); 
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+  });
+  window.bloodhound.initialize();
+
+  # Typeahead itself.
+  $('#create_serving').find("#name").typeahead(null, {
+    source: window.bloodhound.ttAdapter(),
+    displayKey: (sugg) ->
+      return sugg.val;
   });
 
 

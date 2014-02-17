@@ -43,8 +43,8 @@
       <%= hidden_field_tag 'serving[when_eaten]', @date %>
       <div class="col-sm-2">
         <div class="input-group">
-          <span class="input-group-addon">#</span>
-          <input id="quantity" name="serving[quantity]" type="text" size="6" class="form-control" placeholder="qty">
+          <span class="input-group-addon">Qty</span>
+          <input id="quantity" name="serving[quantity]" type="text" size="6" class="form-control">
         </div>
       </div>
 
@@ -52,8 +52,8 @@
 
       <div class="col-sm-5">
         <div class="input-group example-numbers">
-          <span class="input-group-addon">?</span>
-          <input id="name" name="serving[name]" type="text" class="form-control typeahead" placeholder="food">
+          <span class="input-group-addon">Food</span>
+          <input id="name" name="serving[name]" type="text" class="form-control">
         </div>
       </div>
 
@@ -61,8 +61,8 @@
 
       <div class="col-sm-5">
         <div class="input-group">
-          <span class="input-group-addon"><span class="glyphicon glyphicon-exclamation-sign"></span></span>
-          <input id="calories" name="serving[calories]" type="text" size="6" class="form-control" placeholder="cals">
+          <span class="input-group-addon">Cal.</span>
+          <input id="calories" name="serving[calories]" type="text" size="6" class="form-control">
 
           <span class="input-group-btn">
             <button type="submit" class="btn btn-default btn-primary">Add</button>

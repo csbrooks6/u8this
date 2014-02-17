@@ -18,6 +18,7 @@ namespace :db do
 
   desc "Populate foods table"
   task make_foods: :environment do
+    puts "%d Foods deleted" % [Food.all.count]
     Food.delete_all
     Serving.all.each do |s|
       if s.user.nil?

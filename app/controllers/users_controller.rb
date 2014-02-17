@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:show, :edit, :update]
+  before_filter :require_user, :only => [:show, :edit, :update, :list_foods]
   
   def new
     @user = User.new
@@ -30,6 +30,27 @@ class UsersController < ApplicationController
     else
       render :action => :show
     end
+  end
+
+  def list_foods
+    query = params[:q]
+
+    # Turn % into _
+    # NOTE: I have a bad feeling about this, but what else should I do?
+    # We need to match things like "3% beer", so we can't just strip the %.
+    # Can't find a generalized way to escape it, though.
+    query = query.gsub('%', '_')
+
+    # If query is nothing but underscores, throw it out. (Would match everything.)
+    if /^_*$/ =~ query
+      return render json: {}
+    end
+
+    # Return a json array of all the names of foods the current user has ever entered.
+    # (For use by typeahead.)
+    foods = Food.where(user: @current_user).where('name LIKE ?', "%#{query}%").
+      order(:name).collect {|f| {val: f.name} } 
+    render json: foods
   end
 
   private

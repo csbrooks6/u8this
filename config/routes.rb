@@ -19,4 +19,5 @@ U8this::Application.routes.draw do
   resource :user_sessions, path: 'session', except: ['edit'], format: false
   
   resource :users, path: 'account', format: false
+  get '/user/list_foods/', to: 'users#list_foods'
 end
