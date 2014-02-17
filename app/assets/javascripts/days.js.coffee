@@ -20,11 +20,16 @@ $(document).ready ->
   window.bloodhound.initialize();
 
   # Typeahead itself.
-  $('#create_serving').find("#name").typeahead(null, {
+  $('.foods.typeahead').typeahead(null, {
     source: window.bloodhound.ttAdapter(),
     displayKey: (sugg) ->
       return sugg.val;
   });
+  # Applying typeahead() has the side-effect of removing the rounded corners
+  # on our input element, probably because the html gets wrapped, so bootstrap 
+  # input-group isn't the direct parent anymore.
+  # This hack restores the rounded corners.
+  $('.foods.typeahead').css('border-radius', '4px');
 
 
   # Handling ajax response for adding a serving.
