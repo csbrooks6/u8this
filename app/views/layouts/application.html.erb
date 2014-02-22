@@ -4,7 +4,13 @@
   <!-- see http://getbootstrap.com/css/#overview-mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>U8this</title>
+  <% if Rails.env.development? %>
+    <title>Dev U8this</title>
+  <% elsif Rails.env.staging? %>
+    <title>Staging U8this</title>
+  <% else %>
+    <title>U8this</title>
+  <% end %>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>

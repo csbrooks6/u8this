@@ -29,8 +29,8 @@ $(document).ready ->
   # on our input element, probably because the html gets wrapped, so bootstrap 
   # input-group isn't the direct parent anymore.
   # This hack restores the rounded corners.
-  $('.foods.typeahead').css('border-radius', '4px');
-
+  $('.foods.typeahead').css('border-top-right-radius', '4px');
+  $('.foods.typeahead').css('border-bottom-right-radius', '4px');
 
   # Handling ajax response for adding a serving.
   $("#create_serving").on("ajax:success", (e, data, status, xhr) ->
