@@ -2,8 +2,8 @@
 lock '3.1.0'
 
 set :application, 'u8this'
-set :repo_url, 'ssh://deploy@brooks6.com/srv/git/u8this.git'
-set :ssh_options, { :forward_agent => true }
+set :repo_url, 'https://github.com/csbrooks6/u8this.git'
+# set :ssh_options, { :forward_agent => true }
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }

@@ -5,7 +5,7 @@
 # For the basis of the context menu, see: http://jsfiddle.net/KyleMit/X9tgY/
 
 $(document).ready ->
-  console.log("document.ready begin");
+  #console.log("document.ready begin");
  
   # Create Bloodhound suggestion engine for typeahead to query against. 
   # Initialized using the json returns from Users#list_foods.
@@ -152,6 +152,6 @@ $(document).ready ->
   $(document).click ->
     $("#contextMenu").hide();
 
-  console.log("document.ready done");
+  #console.log("document.ready done");
 
 
