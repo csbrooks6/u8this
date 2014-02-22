@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20140215235447) do
     t.datetime "updated_at"
   end
 
-  add_index "foods", ["user_id", "name"], name: "index_foods_on_user_id_and_name"
+  add_index "foods", ["user_id"], name: "index_foods_on_user_id"
 
   create_table "servings", force: true do |t|
     t.integer  "user_id"
