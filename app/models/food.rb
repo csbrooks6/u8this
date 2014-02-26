@@ -31,7 +31,6 @@ class Food < ActiveRecord::Base
   # Increase ref_count by one. (Create the food if necessary.)
   # Also updates the last_unit_calories. 
   def self.addref user, food_name, last_unit_calories
-    puts "Food.addref begin"
     food = Food.find_by(user: user, name: food_name)
     if food.nil?
       food = Food.create(user: user, name: food_name, last_unit_calories: last_unit_calories, ref_count: 1)
@@ -40,12 +39,10 @@ class Food < ActiveRecord::Base
       food.last_unit_calories = last_unit_calories
       food.save
     end
-    puts "Food.addref end"
   end
 
   # Decrease ref_count by one, delete this Food if at 0.
   def self.release user, food_name
-    puts "Food.release begin"
     food = Food.find_by(user: user, name: food_name)
     unless food.nil?
       food.ref_count -= 1
@@ -53,7 +50,6 @@ class Food < ActiveRecord::Base
         food.destroy
       end
     end
-    puts "Food.release end"
   end
 
 end
