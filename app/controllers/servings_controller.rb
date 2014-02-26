@@ -19,7 +19,7 @@ class ServingsController < ApplicationController
     serving.day_order = day_order
     serving.save!
 
-    Food.addref current_user, serving.name
+    Food.addref current_user, serving.name, (serving.calories.to_f/serving.quantity)
 
     html = render_to_string partial: '/days/serving', object: serving, formats: [:html]
     progress_bar_locals = DaysController.get_progress_bar_locals current_user, serving.when_eaten
@@ -34,16 +34,14 @@ class ServingsController < ApplicationController
 
     serving = Serving.find params[:id]
 
-    unless serving.user == current_user
-      return :internal_error
-    end
+    return :internal_error unless serving.user == current_user
 
     old_name = serving.name
 
     serving.update_attributes serving_params
 
     if old_name != serving.name
-      Food.addref current_user, serving.name
+      Food.addref current_user, serving.name, (serving_params[:calories]/serving_params[:quantity])
       Food.release current_user, old_name
     end
 

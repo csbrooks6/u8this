@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140215235447) do
+ActiveRecord::Schema.define(version: 20140222134530) do
 
   create_table "foods", force: true do |t|
-    t.integer  "user_id",                null: false
-    t.string   "name",                   null: false
-    t.integer  "ref_count",  default: 0, null: false
+    t.integer  "user_id",                          null: false
+    t.string   "name",                             null: false
+    t.integer  "ref_count",          default: 0,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "last_unit_calories", default: 0.0, null: false
   end
 
-  add_index "foods", ["user_id"], name: "index_foods_on_user_id"
+  add_index "foods", ["user_id", "name"], name: "index_foods_on_user_id_and_name"
 
   create_table "servings", force: true do |t|
     t.integer  "user_id"

@@ -16,8 +16,10 @@
 class Serving < ActiveRecord::Base
   belongs_to :user
 
-  validates_presence_of :name
+  validates_presence_of :user, :day_order, :name, :quantity, :name, :calories, :when_eaten
   validates :day_order, numericality: { greater_than_or_equal_to: 0 }  
+  validates :quantity, numericality: { greater_than: 0 }  
+  validates :calories, numericality: { greater_than: 0 }  
 
   def quantity_as_str
     if quantity.nil?
@@ -95,8 +97,6 @@ class Serving < ActiveRecord::Base
 
   # Try to fixup ALL the day_orders across all users and days. 
   def self.fixup_all_day_orders 
-    puts "Serving#fixup_all_day_orders"
-
     # This all could probably be made into one query, but it should only run in development.
     ok = true
     user_ids = Serving.pluck('DISTINCT user_id')
@@ -106,7 +106,6 @@ class Serving < ActiveRecord::Base
         unless Serving.fixup_day_orders user_id, when_eaten
           ok = false
         end
-
       end
     end
 

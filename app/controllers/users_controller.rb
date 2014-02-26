@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     # Return a json array of all the names of foods the current user has ever entered.
     # (For use by typeahead.)
     foods = Food.where(user: @current_user).where('name LIKE ?', "%#{query}%").
-      order(:name).collect {|f| {val: f.name} } 
+      order(:name).collect {|f| {val: f.name, cals: f.last_unit_calories, cals_to_i: f.last_unit_calories.to_i } } 
     render json: foods
   end
 

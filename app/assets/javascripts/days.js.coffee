@@ -4,16 +4,13 @@
 
 # For the basis of the context menu, see: http://jsfiddle.net/KyleMit/X9tgY/
 
-$(document).ready ->
-  #console.log("document.ready begin");
- 
+window.initTypeahead = () ->
+  console.log('initTypeahead begin');
   # Create Bloodhound suggestion engine for typeahead to query against. 
   # Initialized using the json returns from Users#list_foods.
   window.bloodhound = new Bloodhound({
-    name: 'foods',
-    remote: '/user/list_foods.js?q=%QUERY',
+    remote: "/user/list_foods.js?q=%QUERY&t="+(new Date()).getTime().toString(),
     datumTokenizer: (d)->
-      console.log(d.val);
       return Bloodhound.tokenizers.whitespace(d.val); 
     queryTokenizer: Bloodhound.tokenizers.whitespace
   });
@@ -22,9 +19,34 @@ $(document).ready ->
   # Typeahead itself.
   $('.foods.typeahead').typeahead(null, {
     source: window.bloodhound.ttAdapter(),
-    displayKey: (sugg) ->
-      return sugg.val;
+    displayKey: 'val',
+    templates: {
+      suggestion: Handlebars.compile([
+        '<p class="typeaheadDropdownCalories">{{cals_to_i}} cals ea.</p>',
+        '<p class="typeaheadDropdownFood">{{val}}</p>',
+      ].join(''))
+    }
   });
+
+window.destroyTypeahead = () ->
+  $('.foods.typeahead').typeahead('destroy');
+  delete window.bloodhound;
+
+$(document).ready ->
+  #console.log("document.ready begin");
+
+  window.initTypeahead();
+
+  $('.foods.typeahead').on("typeahead:selected", (e, sugg, dataset_name) ->
+    qty = $('#create_serving').find("#quantity").val()
+    cals = Math.round(qty * sugg.cals)
+    $('#create_serving').find("#calories").val( cals );
+  ).on("typeahead:autocompleted", (e, sugg, dataset_name) ->
+    qty = $('#create_serving').find("#quantity").val()
+    cals = Math.round(qty * sugg.cals)
+    $('#create_serving').find("#calories").val( cals );
+  );
+
   # Applying typeahead() has the side-effect of removing the rounded corners
   # on our input element, probably because the html gets wrapped, so bootstrap 
   # input-group isn't the direct parent anymore.
@@ -39,8 +61,13 @@ $(document).ready ->
 
     $("#progress_bar_to_replace").replaceWith(data.progress_bar_html)
 
+    # Re-init typeahead.
+    window.destroyTypeahead();
+    window.initTypeahead();
+
     $("#create_serving")[0].reset();
     $('#create_serving').find("#quantity").focus();
+
   ).bind "ajax:error", (e, xhr, status, error) ->
     console.log("create_serving error");
     alert("Error: Couldn't add, sorry! Try again later.");
@@ -68,7 +95,6 @@ $(document).ready ->
     window.servingClicked.replaceWith(data.html)    
     window.servingClicked = null
     element = $('#serving'+window.servingClickedId.toString());
-    console.log(element);
     element.fadeTo(400.0, 0.0).fadeTo(400.0, 1.0);
   ).bind "ajax:error", (e, xhr, status, error) ->
     alert("error!");
