@@ -38,6 +38,10 @@ To try to repair anything wacky in the database, use `cap production db_fixup`.
 
 Using postgresql for staging and production. 
 
+NOTE: Before doing bundle install, do:
+
+gem install pg -- --with-pg-config=/Library/PostgreSQL/9.1/bin/pg_config
+
 -Create the "Role" (aka user):
 
 # createuser -d -R -P will create a user that can create a db (-d), can't create role (-R), and prompt for password(-P)

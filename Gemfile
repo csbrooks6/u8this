@@ -56,6 +56,7 @@ end
 gem 'rvm1-capistrano3', require: false
 gem 'capistrano', '~> 3.1'
 gem 'capistrano-rails', '~> 1.1'
+gem 'capistrano-bundler'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

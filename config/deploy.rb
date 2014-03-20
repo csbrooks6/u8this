@@ -1,9 +1,6 @@
 # config valid only for Capistrano 3.1
 lock '3.1.0'
 
-set :rvm1_ruby_version, "2.1.1"
-set :default_shell, "/bin/bash --login"
-
 set :application, 'u8this'
 set :repo_url, 'https://github.com/csbrooks6/u8this.git'
 # set :ssh_options, { :forward_agent => true }
