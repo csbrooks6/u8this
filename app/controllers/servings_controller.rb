@@ -41,7 +41,7 @@ class ServingsController < ApplicationController
     serving.update_attributes serving_params
 
     if old_name != serving.name
-      Food.addref current_user, serving.name, (serving_params[:calories]/serving_params[:quantity])
+      Food.addref current_user, serving.name, (serving_params[:calories].to_f/serving_params[:quantity].to_f)
       Food.release current_user, old_name
     end
 

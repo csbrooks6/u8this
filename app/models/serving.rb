@@ -22,10 +22,7 @@ class Serving < ActiveRecord::Base
   validates :calories, numericality: { greater_than: 0 }  
 
   def quantity_as_str
-    if quantity.nil?
-      return "-"
-    end
-    "%g" % quantity
+    quantity.nil? ? "-" : "%g" % quantity
   end
 
   def move_up
@@ -38,7 +35,7 @@ class Serving < ActiveRecord::Base
     prev.save
     save
 
-    assert(Serving.check_day_orders(user_id, when_eaten))
+    #assert(Serving.check_day_orders(user_id, when_eaten))
   end
 
   def move_down
@@ -51,7 +48,7 @@ class Serving < ActiveRecord::Base
     after.save
     save
 
-    assert(Serving.check_day_orders(user_id, when_eaten))
+    #assert(Serving.check_day_orders(user_id, when_eaten))
   end
 
   # Return an in-order array of all the Servings for the given user and day.
@@ -103,13 +100,10 @@ class Serving < ActiveRecord::Base
     user_ids.each do |user_id|
       dates = Serving.where(user_id: user_id).pluck('DISTINCT when_eaten')
       dates.each do |when_eaten|
-        unless Serving.fixup_day_orders user_id, when_eaten
-          ok = false
-        end
+        ok = false unless Serving.fixup_day_orders user_id, when_eaten
       end
     end
 
     ok
   end
-
 end

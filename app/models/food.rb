@@ -46,9 +46,7 @@ class Food < ActiveRecord::Base
     food = Food.find_by(user: user, name: food_name)
     unless food.nil?
       food.ref_count -= 1
-      if food.ref_count <= 0
-        food.destroy
-      end
+      food.destroy if food.ref_count <= 0
     end
   end
 
